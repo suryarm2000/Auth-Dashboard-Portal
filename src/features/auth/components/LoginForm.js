@@ -4,9 +4,10 @@ import EmailIcon from '@mui/icons-material/Email';
 import HttpsIcon from '@mui/icons-material/Https';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { validateLogin } from "../utils/authValidation";
 import GoogleIcon from '@mui/icons-material/Google';
 import MicrosoftIcon from '@mui/icons-material/Microsoft';
+import { validateLogin } from "../utils/authValidation";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm(){
 
@@ -17,6 +18,7 @@ function LoginForm(){
     });
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({})
+    const navigate = useNavigate();
 
     function handleChange(e){
         const target = e.target;
@@ -47,6 +49,7 @@ function LoginForm(){
         }
 
         console.log("Login Success - Details: ", formValues);
+        navigate("/dashboard");
     }
 
     return(

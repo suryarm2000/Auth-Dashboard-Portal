@@ -8,6 +8,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import GoogleIcon from '@mui/icons-material/Google';
 import MicrosoftIcon from '@mui/icons-material/Microsoft';
 import { validateSignup } from "../utils/authValidation";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm(){
 
@@ -20,6 +21,7 @@ function SignupForm(){
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [errors, setErrors] = useState({})
+    const navigate = useNavigate();
 
     function handleChange(e){
         const target = e.target;
@@ -54,6 +56,7 @@ function SignupForm(){
         }
 
         console.log("Account created - Details: ", formValues);
+        navigate("/dashboard");
     }
 
     return(
