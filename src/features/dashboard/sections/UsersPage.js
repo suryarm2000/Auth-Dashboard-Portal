@@ -1,20 +1,21 @@
 import {
     Box, Table, TableBody, TableCell, TableContainer, TablePagination,
     Checkbox, TableHead, TableRow, TextField, Button, Skeleton,
-    Typography, Stack
+    Typography, Stack, Snackbar, Alert
 } from "@mui/material";
 import { useState } from "react";
 import useFetch from "../../../hooks/useFetch";
 
 function UsersTable({ onSaveUsers }) {
 
-    const { data, loading, error } = useFetch("https://dummyjson.com/users?limit=100&skip=0");
+    const { data, loading, error } = useFetch("https://dummyjson.com/users?limit=14&skip=0");
     const userData = data?.users ?? [];
 
     const [searchTerm, setSearchTerm] = useState("");
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [selectedUsers, setSelectedUsers] = useState([]);
+    const [snackbar, setSnackbar] = useState({ open: false });
 
     const filteredUsers = userData.filter((user) => {
         const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
@@ -69,6 +70,11 @@ function UsersTable({ onSaveUsers }) {
     function handleSave() {
         if (selectedUsers.length === 0) return;
         onSaveUsers(selectedUsers);
+        setSnackbar({ open: true });
+    }
+
+    function handleCloseSnackbar() {
+        setSnackbar({ open: false });
     }
 
     if (loading) {
@@ -177,6 +183,21 @@ function UsersTable({ onSaveUsers }) {
                 rowsPerPageOptions={[5, 10, 25, 50]}
             />
 
+            <Snackbar
+                open={snackbar.open}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            >
+                <Alert
+                    onClose={handleCloseSnackbar}
+                    severity="success"
+                    variant="filled"
+                    sx={{ width: "100%" }}
+                >
+                    {selectedUsers.length} user{selectedUsers.length !== 1 ? "s" : ""} saved successfully
+                </Alert>
+            </Snackbar>
         </Box>
     );
 }

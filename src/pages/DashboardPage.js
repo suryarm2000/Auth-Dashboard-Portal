@@ -6,10 +6,14 @@ import { useState } from "react";
 
 function DashboardPage() {
     const [activeSection, setActiveSection] = useState("overview");
-    const [savedUsers, setSavedUsers] = useState([]);
-
+    const [savedUsers, setSavedUsers] = useState(() => {
+        const stored = localStorage.getItem("savedUsers");
+        return stored ? JSON.parse(stored) : [];
+    });
+    
     function handleSaveUsers(selectedUsers) {
         setSavedUsers(selectedUsers);
+        localStorage.setItem("savedUsers", JSON.stringify(selectedUsers));
     }
 
     return (

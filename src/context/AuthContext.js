@@ -17,10 +17,17 @@ function AuthProvider({ children }){
     function logout(){
         setUser(null);
         localStorage.removeItem("user");
+        localStorage.removeItem("savedUsers");
+    }
+
+    function updateUser(updatedData) {
+        const newUser = { ...user, ...updatedData };
+        setUser(newUser);
+        localStorage.setItem("user", JSON.stringify(newUser));
     }
 
     return(
-        <AuthContext.Provider value={{ user, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout, updateUser }}>
             {children}
         </AuthContext.Provider>
     );
