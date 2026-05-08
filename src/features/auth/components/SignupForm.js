@@ -9,6 +9,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import MicrosoftIcon from '@mui/icons-material/Microsoft';
 import { validateSignup } from "../utils/authValidation";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 function SignupForm(){
 
@@ -22,6 +23,7 @@ function SignupForm(){
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [errors, setErrors] = useState({})
     const navigate = useNavigate();
+    const { login } = useAuth();
 
     function handleChange(e){
         const target = e.target;
@@ -55,7 +57,7 @@ function SignupForm(){
             return;
         }
 
-        console.log("Account created - Details: ", formValues);
+        login({ email: formValues.email, fullName: formValues.fullName });
         navigate("/dashboard");
     }
 

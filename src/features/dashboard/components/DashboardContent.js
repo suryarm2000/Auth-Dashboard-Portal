@@ -1,23 +1,13 @@
 import { Box } from "@mui/material";
-import UsersTable from "./UsersTable";
+import UsersTable from "../sections/UsersPage";
+import SavedUsersPage from "../sections/SavedUsersPage";
+import OverviewPage from "../sections/OverviewPage";
 
-function DashboardContent({activeSection}){
-
-    let toShow = "Dashboard";
-
-    if(activeSection === "users"){
-        toShow = <UsersTable />
-    }else if(activeSection === "saved"){
-        toShow = "Saved Component"
-    }else if(activeSection === "settings"){
-        toShow = "Settings Component"
-    }
-
-    return(
-        <Box>
-            {toShow}
-        </Box>
-    )
+function DashboardContent({ activeSection, savedUsers, onSaveUsers }) {
+    if (activeSection === "overview") return <OverviewPage savedUsers={savedUsers} />;
+    if (activeSection === "users") return <UsersTable onSaveUsers={onSaveUsers} />;
+    if (activeSection === "saved") return <SavedUsersPage savedUsers={savedUsers} onSaveUsers={onSaveUsers} />;
+    if (activeSection === "settings") return <Box>Settings coming soon</Box>;
 }
 
 export default DashboardContent;

@@ -8,6 +8,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import MicrosoftIcon from '@mui/icons-material/Microsoft';
 import { validateLogin } from "../utils/authValidation";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
 function LoginForm(){
 
@@ -19,6 +20,7 @@ function LoginForm(){
     const [showPassword, setShowPassword] = useState(false);
     const [errors, setErrors] = useState({})
     const navigate = useNavigate();
+    const {login} = useAuth();
 
     function handleChange(e){
         const target = e.target;
@@ -48,7 +50,7 @@ function LoginForm(){
             return;
         }
 
-        console.log("Login Success - Details: ", formValues);
+        login({ email: formValues.email });
         navigate("/dashboard");
     }
 
