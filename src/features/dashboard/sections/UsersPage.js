@@ -8,7 +8,7 @@ import useFetch from "../../../hooks/useFetch";
 
 function UsersTable({ onSaveUsers }) {
 
-    const { data, loading, error } = useFetch("https://dummyjson.com/users?limit=14&skip=0");
+    const { data, loading, error } = useFetch("https://dummyjson.com/users?limit=100&skip=0");
     const userData = data?.users ?? [];
 
     const [searchTerm, setSearchTerm] = useState("");
